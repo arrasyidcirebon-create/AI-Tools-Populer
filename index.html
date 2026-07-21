@@ -124,11 +124,55 @@
         .light-mode .card {
             @apply bg-gray-50 border-gray-200;
         }
+
+        .ai-tool-btn {
+            @apply inline-flex items-center px-4 py-2 rounded-lg font-semibold text-sm transition-all;
+            background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .ai-tool-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(6, 182, 212, 0.4);
+        }
+
+        .search-input {
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #06b6d4;
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+            outline: none;
+        }
+
+        .tools-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .tool-hidden {
+            display: none;
+        }
+
+        .dark-mode .search-input {
+            @apply text-white placeholder-gray-500;
+        }
+
+        .light-mode .search-input {
+            @apply text-gray-900 placeholder-gray-400;
+            background: rgba(255, 255, 255, 0.8);
+        }
     </style>
 </head>
 <body class="dark-mode">
     <!-- Navbar/Header -->
-    <nav class="sticky top-0 z-50 backdrop-blur-md" style="background-color: rgba(15, 23, 42, 0.9);">
+    <nav class="sticky top-0 z-50 backdrop-blur-md" style="background-color: rgba(15, 23, 42, 0.95);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
@@ -143,7 +187,6 @@
                     <a href="#kategori" class="nav-link transition">Kategori</a>
                     <a href="#perbandingan" class="nav-link transition">Perbandingan</a>
                     <a href="#tips" class="nav-link transition">Tips</a>
-                    <a href="#kontak" class="nav-link transition">Kontak</a>
                     <button id="darkModeToggle" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition">
                         🌙
                     </button>
@@ -166,23 +209,34 @@
                 <a href="#kategori" class="block py-2 nav-link transition">Kategori</a>
                 <a href="#perbandingan" class="block py-2 nav-link transition">Perbandingan</a>
                 <a href="#tips" class="block py-2 nav-link transition">Tips</a>
-                <a href="#kontak" class="block py-2 nav-link transition">Kontak</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center px-4 py-20 dark-mode" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 27, 75, 0.9) 100%);">
-        <div class="max-w-4xl mx-auto text-center fade-in">
+    <section id="home" class="min-h-screen flex items-center justify-center px-4 py-20" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 27, 75, 0.95) 100%);">
+        <div class="max-w-4xl mx-auto text-center fade-in w-full">
             <div class="mb-6 text-5xl md:text-7xl font-bold">
                 <span class="gradient-text">Portal AI Populer</span>
             </div>
             <h2 class="text-xl md:text-3xl font-semibold text-gray-300 mb-6">
                 Panduan & Katalog Tools AI Terdepan
             </h2>
-            <p class="text-base md:text-lg text-gray-400 mb-10 leading-relaxed max-w-2xl mx-auto">
+            <p class="text-base md:text-lg text-gray-400 mb-12 leading-relaxed max-w-2xl mx-auto">
                 Temukan tools Artificial Intelligence terbaik untuk meningkatkan produktivitas, kreativitas, dan efisiensi kerja Anda. Dari penulisan hingga coding, kami punya semuanya.
             </p>
+
+            <!-- Search Bar -->
+            <div class="mb-12 max-w-2xl mx-auto">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="🔍 Cari tools AI (ChatGPT, Midjourney, GitHub Copilot, ...)" 
+                    class="search-input w-full px-6 py-4 rounded-xl text-lg"
+                >
+            </div>
+
+            <!-- CTA Buttons -->
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <button onclick="document.getElementById('kategori').scrollIntoView()" class="px-8 py-3 bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-bold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition transform hover:scale-105">
                     Jelajahi Kategori
@@ -201,59 +255,99 @@
             <p class="text-gray-400 mb-16 text-lg">Jelajahi berbagai kategori tools AI yang populer dan terpercaya</p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
                 <!-- Category 1: Teks & Asisten Bahasa -->
-                <div class="card card-hover p-6 rounded-xl border">
+                <div class="card card-hover p-6 rounded-xl border search-category" data-category="teks">
                     <div class="text-4xl mb-4">💬</div>
                     <h4 class="text-2xl font-bold mb-3">Teks & Asisten Bahasa</h4>
                     <p class="text-gray-400 mb-4">Asisten AI untuk menulis, menjawab pertanyaan, dan menganalisis teks.</p>
-                    <div class="space-y-2 mb-4">
-                        <div class="text-sm font-semibold text-gray-300">Tools: ChatGPT, Claude, Gemini, DeepSeek</div>
+                    
+                    <!-- Tools Section -->
+                    <div class="mb-4">
+                        <div class="text-sm font-semibold text-cyan-400 mb-3">Tools:</div>
+                        <div class="tools-container">
+                            <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="ChatGPT">ChatGPT</a>
+                            <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="Claude">Claude</a>
+                            <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="Gemini">Gemini</a>
+                            <a href="https://chat.deepseek.com" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="DeepSeek">DeepSeek</a>
+                        </div>
                     </div>
+
+                    <!-- Badges -->
                     <div class="flex flex-wrap gap-2">
                         <span class="category-badge badge-pro">✓ Akurat</span>
                         <span class="category-badge badge-pro">✓ Cepat</span>
-                        <span class="category-badge badge-con">✗ Memerlukan Verifikasi</span>
+                        <span class="category-badge badge-con">✗ Verifikasi</span>
                     </div>
                 </div>
 
                 <!-- Category 2: Gambar -->
-                <div class="card card-hover p-6 rounded-xl border">
+                <div class="card card-hover p-6 rounded-xl border search-category" data-category="gambar">
                     <div class="text-4xl mb-4">🎨</div>
                     <h4 class="text-2xl font-bold mb-3">Pembuat & Pengedit Gambar</h4>
                     <p class="text-gray-400 mb-4">Buat dan edit gambar dengan AI untuk desain profesional.</p>
-                    <div class="space-y-2 mb-4">
-                        <div class="text-sm font-semibold text-gray-300">Tools: Midjourney, DALL-E 3, Stable Diffusion, Canva</div>
+                    
+                    <!-- Tools Section -->
+                    <div class="mb-4">
+                        <div class="text-sm font-semibold text-cyan-400 mb-3">Tools:</div>
+                        <div class="tools-container">
+                            <a href="https://www.midjourney.com" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="Midjourney">Midjourney</a>
+                            <a href="https://openai.com/dall-e-3" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="DALL-E 3">DALL-E 3</a>
+                            <a href="https://stability.ai" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="Stable Diffusion">Stable Diff.</a>
+                            <a href="https://www.canva.com" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="Canva">Canva</a>
+                        </div>
                     </div>
+
+                    <!-- Badges -->
                     <div class="flex flex-wrap gap-2">
                         <span class="category-badge badge-pro">✓ Berkualitas</span>
                         <span class="category-badge badge-pro">✓ Kreatif</span>
-                        <span class="category-badge badge-con">✗ Biaya Berlangganan</span>
+                        <span class="category-badge badge-con">✗ Biaya</span>
                     </div>
                 </div>
 
                 <!-- Category 3: Video & Avatar -->
-                <div class="card card-hover p-6 rounded-xl border">
+                <div class="card card-hover p-6 rounded-xl border search-category" data-category="video">
                     <div class="text-4xl mb-4">🎬</div>
                     <h4 class="text-2xl font-bold mb-3">Generator Video & Avatar</h4>
                     <p class="text-gray-400 mb-4">Hasilkan video dan avatar AI untuk konten multimedia.</p>
-                    <div class="space-y-2 mb-4">
-                        <div class="text-sm font-semibold text-gray-300">Tools: Sora, Runway, HeyGen, Luma</div>
+                    
+                    <!-- Tools Section -->
+                    <div class="mb-4">
+                        <div class="text-sm font-semibold text-cyan-400 mb-3">Tools:</div>
+                        <div class="tools-container">
+                            <a href="https://sora.com" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="Sora">Sora</a>
+                            <a href="https://runwayml.com" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="Runway">Runway</a>
+                            <a href="https://www.heygen.com" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="HeyGen">HeyGen</a>
+                            <a href="https://lumalabs.ai/dream-machine" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="Luma">Luma</a>
+                        </div>
                     </div>
+
+                    <!-- Badges -->
                     <div class="flex flex-wrap gap-2">
                         <span class="category-badge badge-pro">✓ Inovatif</span>
                         <span class="category-badge badge-pro">✓ Otomatis</span>
-                        <span class="category-badge badge-con">✗ Memerlukan Komputasi</span>
+                        <span class="category-badge badge-con">✗ Komputasi</span>
                     </div>
                 </div>
 
                 <!-- Category 4: Coding -->
-                <div class="card card-hover p-6 rounded-xl border">
+                <div class="card card-hover p-6 rounded-xl border search-category" data-category="coding">
                     <div class="text-4xl mb-4">💻</div>
                     <h4 class="text-2xl font-bold mb-3">Pemrograman & Coding</h4>
                     <p class="text-gray-400 mb-4">Asisten coding untuk menulis, refactor, dan debug kode.</p>
-                    <div class="space-y-2 mb-4">
-                        <div class="text-sm font-semibold text-gray-300">Tools: GitHub Copilot, Cursor, Replit</div>
+                    
+                    <!-- Tools Section -->
+                    <div class="mb-4">
+                        <div class="text-sm font-semibold text-cyan-400 mb-3">Tools:</div>
+                        <div class="tools-container">
+                            <a href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="GitHub Copilot">Copilot</a>
+                            <a href="https://www.cursor.com" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="Cursor">Cursor</a>
+                            <a href="https://replit.com" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="Replit">Replit</a>
+                        </div>
                     </div>
+
+                    <!-- Badges -->
                     <div class="flex flex-wrap gap-2">
                         <span class="category-badge badge-pro">✓ Produktif</span>
                         <span class="category-badge badge-pro">✓ Multibahas</span>
@@ -262,13 +356,23 @@
                 </div>
 
                 <!-- Category 5: Audio & Musik -->
-                <div class="card card-hover p-6 rounded-xl border">
-                    <div class="text-4xl mb-4">🎵</div>
+                <div class="card card-hover p-6 rounded-xl border search-category" data-category="audio">
+                    <div class="text-4xl mb-4">🎙️</div>
                     <h4 class="text-2xl font-bold mb-3">Audio, Suara, & Musik</h4>
                     <p class="text-gray-400 mb-4">Buat musik, ubah suara, dan hasilkan narasi otomatis.</p>
-                    <div class="space-y-2 mb-4">
-                        <div class="text-sm font-semibold text-gray-300">Tools: ElevenLabs, Suno AI, Udio, Adobe Podcast</div>
+                    
+                    <!-- Tools Section -->
+                    <div class="mb-4">
+                        <div class="text-sm font-semibold text-cyan-400 mb-3">Tools:</div>
+                        <div class="tools-container">
+                            <a href="https://elevenlabs.io" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="ElevenLabs">ElevenLabs</a>
+                            <a href="https://suno.com" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="Suno AI">Suno AI</a>
+                            <a href="https://www.udio.com" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="Udio">Udio</a>
+                            <a href="https://podcast.adobe.com" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="Adobe Podcast">Adobe Pod</a>
+                        </div>
                     </div>
+
+                    <!-- Badges -->
                     <div class="flex flex-wrap gap-2">
                         <span class="category-badge badge-pro">✓ Natural</span>
                         <span class="category-badge badge-pro">✓ Fleksibel</span>
@@ -277,17 +381,26 @@
                 </div>
 
                 <!-- Category 6: Riset & Produktivitas -->
-                <div class="card card-hover p-6 rounded-xl border">
+                <div class="card card-hover p-6 rounded-xl border search-category" data-category="riset">
                     <div class="text-4xl mb-4">🔍</div>
                     <h4 class="text-2xl font-bold mb-3">Riset & Produktivitas</h4>
                     <p class="text-gray-400 mb-4">Tools untuk riset mendalam, produktivitas, dan transkripsi.</p>
-                    <div class="space-y-2 mb-4">
-                        <div class="text-sm font-semibold text-gray-300">Tools: Perplexity AI, Notion AI, Otter.ai</div>
+                    
+                    <!-- Tools Section -->
+                    <div class="mb-4">
+                        <div class="text-sm font-semibold text-cyan-400 mb-3">Tools:</div>
+                        <div class="tools-container">
+                            <a href="https://www.perplexity.ai" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="Perplexity AI">Perplexity</a>
+                            <a href="https://www.notion.so" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="Notion AI">Notion AI</a>
+                            <a href="https://otter.ai" target="_blank" rel="noopener noreferrer" class="ai-tool-btn search-tool" data-name="Otter.ai">Otter.ai</a>
+                        </div>
                     </div>
+
+                    <!-- Badges -->
                     <div class="flex flex-wrap gap-2">
                         <span class="category-badge badge-pro">✓ Komprehensif</span>
                         <span class="category-badge badge-pro">✓ Terintegrasi</span>
-                        <span class="category-badge badge-con">✗ Kurva Pembelajaran</span>
+                        <span class="category-badge badge-con">✗ Kurva Belajar</span>
                     </div>
                 </div>
             </div>
@@ -312,32 +425,50 @@
                     <tbody>
                         <tr class="border-b border-slate-700/50 hover:bg-slate-900/30 transition">
                             <td class="px-4 py-4 font-semibold">📝 Menulis & Editing</td>
-                            <td class="px-4 py-4">ChatGPT, Claude, Gemini</td>
+                            <td class="px-4 py-4">
+                                <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline">ChatGPT</a>, 
+                                <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline">Claude</a>
+                            </td>
                             <td class="px-4 py-4 text-gray-300">Natural, konteks penuh, revisi cepat</td>
                         </tr>
                         <tr class="border-b border-slate-700/50 hover:bg-slate-900/30 transition">
                             <td class="px-4 py-4 font-semibold">🔍 Riset Mendalam</td>
-                            <td class="px-4 py-4">Perplexity AI, Claude</td>
+                            <td class="px-4 py-4">
+                                <a href="https://www.perplexity.ai" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline">Perplexity</a>, 
+                                <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline">Claude</a>
+                            </td>
                             <td class="px-4 py-4 text-gray-300">Akurat, sumber terverifikasi, analisis detail</td>
                         </tr>
                         <tr class="border-b border-slate-700/50 hover:bg-slate-900/30 transition">
                             <td class="px-4 py-4 font-semibold">🎨 Buat Gambar</td>
-                            <td class="px-4 py-4">Midjourney, DALL-E 3</td>
+                            <td class="px-4 py-4">
+                                <a href="https://www.midjourney.com" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline">Midjourney</a>, 
+                                <a href="https://openai.com/dall-e-3" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline">DALL-E 3</a>
+                            </td>
                             <td class="px-4 py-4 text-gray-300">Kualitas tinggi, detail fine-tuning</td>
                         </tr>
                         <tr class="border-b border-slate-700/50 hover:bg-slate-900/30 transition">
                             <td class="px-4 py-4 font-semibold">🎵 Musik & Audio</td>
-                            <td class="px-4 py-4">Suno AI, ElevenLabs</td>
+                            <td class="px-4 py-4">
+                                <a href="https://suno.com" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline">Suno AI</a>, 
+                                <a href="https://elevenlabs.io" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline">ElevenLabs</a>
+                            </td>
                             <td class="px-4 py-4 text-gray-300">Musik original, voice natural, multi-bahasa</td>
                         </tr>
                         <tr class="border-b border-slate-700/50 hover:bg-slate-900/30 transition">
                             <td class="px-4 py-4 font-semibold">💻 Coding Assist</td>
-                            <td class="px-4 py-4">GitHub Copilot, Cursor</td>
+                            <td class="px-4 py-4">
+                                <a href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline">GitHub Copilot</a>, 
+                                <a href="https://www.cursor.com" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline">Cursor</a>
+                            </td>
                             <td class="px-4 py-4 text-gray-300">Integrasi IDE, autocompletion pintar</td>
                         </tr>
                         <tr class="hover:bg-slate-900/30 transition">
                             <td class="px-4 py-4 font-semibold">🎬 Video & Avatar</td>
-                            <td class="px-4 py-4">HeyGen, Runway, Luma</td>
+                            <td class="px-4 py-4">
+                                <a href="https://www.heygen.com" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline">HeyGen</a>, 
+                                <a href="https://runwayml.com" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline">Runway</a>
+                            </td>
                             <td class="px-4 py-4 text-gray-300">Avatar realistis, editing otomatis</td>
                         </tr>
                     </tbody>
@@ -358,7 +489,7 @@
                     <div class="text-5xl mb-4">🎯</div>
                     <h4 class="text-2xl font-bold mb-3">Gunakan Prompt Spesifik</h4>
                     <p class="text-gray-400 leading-relaxed">
-                        Semakin detail prompt Anda, semakin baik hasil AI. Jelaskan konteks, format output yang diinginkan, dan batasan yang diperlukan. Contoh: "Buat artikel blog 500 kata tentang AI untuk pemula, dengan struktur: intro, 3 benefit, kesimpulan."
+                        Semakin detail prompt Anda, semakin baik hasil AI. Jelaskan konteks, format output yang diinginkan, dan batasan yang diperlukan.
                     </p>
                 </div>
 
@@ -367,7 +498,7 @@
                     <div class="text-5xl mb-4">✅</div>
                     <h4 class="text-2xl font-bold mb-3">Selalu Verifikasi Output</h4>
                     <p class="text-gray-400 leading-relaxed">
-                        AI bisa menghasilkan informasi yang terlihat benar tapi salah (hallucination). Cek fakta dengan sumber terpercaya, khususnya untuk konten akademik, medis, atau hukum. Jangan percaya mentah-mentah!
+                        AI bisa menghasilkan informasi yang terlihat benar tapi salah (hallucination). Cek fakta dengan sumber terpercaya untuk konten penting.
                     </p>
                 </div>
 
@@ -376,7 +507,7 @@
                     <div class="text-5xl mb-4">🔗</div>
                     <h4 class="text-2xl font-bold mb-3">Kombinasikan Tools</h4>
                     <p class="text-gray-400 leading-relaxed">
-                        Gunakan beberapa tools untuk hasil optimal. Misal: ChatGPT untuk ide, Perplexity untuk riset, Midjourney untuk visual, dan Canva untuk design final. Setiap tool punya kekuatan berbeda!
+                        Gunakan beberapa tools untuk hasil optimal. Misal: ChatGPT untuk ide, Midjourney untuk visual, dan Canva untuk design final.
                     </p>
                 </div>
             </div>
@@ -437,7 +568,7 @@
 
     <!-- JavaScript -->
     <script>
-        // Dark Mode Toggle
+        // ==================== Dark Mode Toggle ====================
         const darkModeToggle = document.getElementById('darkModeToggle');
         const darkModeToggleMobile = document.getElementById('darkModeToggleMobile');
         const body = document.body;
@@ -479,7 +610,7 @@
         darkModeToggle.addEventListener('click', toggleDarkMode);
         darkModeToggleMobile.addEventListener('click', toggleDarkMode);
 
-        // Mobile Menu Toggle
+        // ==================== Mobile Menu Toggle ====================
         mobileMenuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
@@ -492,17 +623,51 @@
             });
         });
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href !== '#') {
-                    e.preventDefault();
-                }
+        // ==================== Search Functionality ====================
+        const searchInput = document.getElementById('searchInput');
+        const allTools = document.querySelectorAll('.search-tool');
+        const allCategories = document.querySelectorAll('.search-category');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+
+            // Hide all categories initially
+            allCategories.forEach(category => {
+                category.style.display = 'none';
             });
+
+            // Hide all tools
+            allTools.forEach(tool => {
+                tool.classList.add('tool-hidden');
+            });
+
+            if (searchTerm.trim() === '') {
+                // Show all categories and tools if search is empty
+                allCategories.forEach(category => {
+                    category.style.display = 'grid';
+                });
+                allTools.forEach(tool => {
+                    tool.classList.remove('tool-hidden');
+                });
+            } else {
+                // Filter tools by search term
+                let hasVisibleTools = false;
+                allTools.forEach(tool => {
+                    const toolName = tool.getAttribute('data-name').toLowerCase();
+                    if (toolName.includes(searchTerm)) {
+                        tool.classList.remove('tool-hidden');
+                        hasVisibleTools = true;
+                        // Show the parent category
+                        const category = tool.closest('.search-category');
+                        if (category) {
+                            category.style.display = 'grid';
+                        }
+                    }
+                });
+            }
         });
 
-        // Add fade-in animation on scroll
+        // ==================== Add fade-in animation on scroll ====================
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
