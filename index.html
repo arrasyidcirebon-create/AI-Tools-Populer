@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Populer - Portal Katalog & Panduan Tools AI Terdepan</title>
+    <meta name="description" content="Temukan tools Artificial Intelligence terbaik untuk meningkatkan produktivitas, kreativitas, dan efisiensi kerja Anda.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            950: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode {
+            @apply bg-slate-950 text-white;
+        }
+
+        body.light-mode {
+            @apply bg-white text-gray-900;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+        }
+
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(6, 182, 212, 0.2);
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #06b6d4, #8b5cf6);
+            border-radius: 2px;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-pro {
+            @apply bg-green-900 text-green-200;
+        }
+
+        .badge-con {
+            @apply bg-red-900 text-red-200;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dark-mode .nav-link {
+            @apply text-gray-300 hover:text-cyan-400;
+        }
+
+        .light-mode .nav-link {
+            @apply text-gray-700 hover:text-cyan-600;
+        }
+
+        .dark-mode .card {
+            @apply bg-slate-900 border-slate-700;
+        }
+
+        .light-mode .card {
+            @apply bg-gray-50 border-gray-200;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <!-- Navbar/Header -->
+    <nav class="sticky top-0 z-50 backdrop-blur-md" style="background-color: rgba(15, 23, 42, 0.9);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="text-2xl">⚡</div>
+                    <span class="text-xl font-bold gradient-text">AI Populer</span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link transition">Home</a>
+                    <a href="#kategori" class="nav-link transition">Kategori</a>
+                    <a href="#perbandingan" class="nav-link transition">Perbandingan</a>
+                    <a href="#tips" class="nav-link transition">Tips</a>
+                    <a href="#kontak" class="nav-link transition">Kontak</a>
+                    <button id="darkModeToggle" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition">
+                        🌙
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button & Dark Mode Toggle -->
+                <div class="md:hidden flex items-center space-x-4">
+                    <button id="darkModeToggleMobile" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition">
+                        🌙
+                    </button>
+                    <button id="mobileMenuBtn" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 transition">
+                        ☰
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4 space-y-2">
+                <a href="#home" class="block py-2 nav-link transition">Home</a>
+                <a href="#kategori" class="block py-2 nav-link transition">Kategori</a>
+                <a href="#perbandingan" class="block py-2 nav-link transition">Perbandingan</a>
+                <a href="#tips" class="block py-2 nav-link transition">Tips</a>
+                <a href="#kontak" class="block py-2 nav-link transition">Kontak</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center px-4 py-20 dark-mode" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 27, 75, 0.9) 100%);">
+        <div class="max-w-4xl mx-auto text-center fade-in">
+            <div class="mb-6 text-5xl md:text-7xl font-bold">
+                <span class="gradient-text">Portal AI Populer</span>
+            </div>
+            <h2 class="text-xl md:text-3xl font-semibold text-gray-300 mb-6">
+                Panduan & Katalog Tools AI Terdepan
+            </h2>
+            <p class="text-base md:text-lg text-gray-400 mb-10 leading-relaxed max-w-2xl mx-auto">
+                Temukan tools Artificial Intelligence terbaik untuk meningkatkan produktivitas, kreativitas, dan efisiensi kerja Anda. Dari penulisan hingga coding, kami punya semuanya.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button onclick="document.getElementById('kategori').scrollIntoView()" class="px-8 py-3 bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-bold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition transform hover:scale-105">
+                    Jelajahi Kategori
+                </button>
+                <button onclick="document.getElementById('kategori').scrollIntoView()" class="px-8 py-3 border-2 border-cyan-500 text-cyan-400 font-bold rounded-lg hover:bg-cyan-500/10 transition">
+                    Cari Tool
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kategori Section -->
+    <section id="kategori" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-4xl md:text-5xl font-bold mb-4 section-title">Kategori Tools AI</h3>
+            <p class="text-gray-400 mb-16 text-lg">Jelajahi berbagai kategori tools AI yang populer dan terpercaya</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Category 1: Teks & Asisten Bahasa -->
+                <div class="card card-hover p-6 rounded-xl border">
+                    <div class="text-4xl mb-4">💬</div>
+                    <h4 class="text-2xl font-bold mb-3">Teks & Asisten Bahasa</h4>
+                    <p class="text-gray-400 mb-4">Asisten AI untuk menulis, menjawab pertanyaan, dan menganalisis teks.</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="text-sm font-semibold text-gray-300">Tools: ChatGPT, Claude, Gemini, DeepSeek</div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="category-badge badge-pro">✓ Akurat</span>
+                        <span class="category-badge badge-pro">✓ Cepat</span>
+                        <span class="category-badge badge-con">✗ Memerlukan Verifikasi</span>
+                    </div>
+                </div>
+
+                <!-- Category 2: Gambar -->
+                <div class="card card-hover p-6 rounded-xl border">
+                    <div class="text-4xl mb-4">🎨</div>
+                    <h4 class="text-2xl font-bold mb-3">Pembuat & Pengedit Gambar</h4>
+                    <p class="text-gray-400 mb-4">Buat dan edit gambar dengan AI untuk desain profesional.</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="text-sm font-semibold text-gray-300">Tools: Midjourney, DALL-E 3, Stable Diffusion, Canva</div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="category-badge badge-pro">✓ Berkualitas</span>
+                        <span class="category-badge badge-pro">✓ Kreatif</span>
+                        <span class="category-badge badge-con">✗ Biaya Berlangganan</span>
+                    </div>
+                </div>
+
+                <!-- Category 3: Video & Avatar -->
+                <div class="card card-hover p-6 rounded-xl border">
+                    <div class="text-4xl mb-4">🎬</div>
+                    <h4 class="text-2xl font-bold mb-3">Generator Video & Avatar</h4>
+                    <p class="text-gray-400 mb-4">Hasilkan video dan avatar AI untuk konten multimedia.</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="text-sm font-semibold text-gray-300">Tools: Sora, Runway, HeyGen, Luma</div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="category-badge badge-pro">✓ Inovatif</span>
+                        <span class="category-badge badge-pro">✓ Otomatis</span>
+                        <span class="category-badge badge-con">✗ Memerlukan Komputasi</span>
+                    </div>
+                </div>
+
+                <!-- Category 4: Coding -->
+                <div class="card card-hover p-6 rounded-xl border">
+                    <div class="text-4xl mb-4">💻</div>
+                    <h4 class="text-2xl font-bold mb-3">Pemrograman & Coding</h4>
+                    <p class="text-gray-400 mb-4">Asisten coding untuk menulis, refactor, dan debug kode.</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="text-sm font-semibold text-gray-300">Tools: GitHub Copilot, Cursor, Replit</div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="category-badge badge-pro">✓ Produktif</span>
+                        <span class="category-badge badge-pro">✓ Multibahas</span>
+                        <span class="category-badge badge-con">✗ Tidak Sempurna</span>
+                    </div>
+                </div>
+
+                <!-- Category 5: Audio & Musik -->
+                <div class="card card-hover p-6 rounded-xl border">
+                    <div class="text-4xl mb-4">🎵</div>
+                    <h4 class="text-2xl font-bold mb-3">Audio, Suara, & Musik</h4>
+                    <p class="text-gray-400 mb-4">Buat musik, ubah suara, dan hasilkan narasi otomatis.</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="text-sm font-semibold text-gray-300">Tools: ElevenLabs, Suno AI, Udio, Adobe Podcast</div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="category-badge badge-pro">✓ Natural</span>
+                        <span class="category-badge badge-pro">✓ Fleksibel</span>
+                        <span class="category-badge badge-con">✗ Lisensi Audio</span>
+                    </div>
+                </div>
+
+                <!-- Category 6: Riset & Produktivitas -->
+                <div class="card card-hover p-6 rounded-xl border">
+                    <div class="text-4xl mb-4">🔍</div>
+                    <h4 class="text-2xl font-bold mb-3">Riset & Produktivitas</h4>
+                    <p class="text-gray-400 mb-4">Tools untuk riset mendalam, produktivitas, dan transkripsi.</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="text-sm font-semibold text-gray-300">Tools: Perplexity AI, Notion AI, Otter.ai</div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="category-badge badge-pro">✓ Komprehensif</span>
+                        <span class="category-badge badge-pro">✓ Terintegrasi</span>
+                        <span class="category-badge badge-con">✗ Kurva Pembelajaran</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Perbandingan Section -->
+    <section id="perbandingan" class="py-20 px-4" style="background: linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, transparent 100%);">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-4xl md:text-5xl font-bold mb-4 section-title">Kapan Menggunakan Apa?</h3>
+            <p class="text-gray-400 mb-16 text-lg">Panduan cepat memilih tool AI berdasarkan kebutuhan Anda</p>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm md:text-base">
+                    <thead>
+                        <tr class="border-b border-cyan-500/30">
+                            <th class="px-4 py-4 text-left font-bold text-cyan-400">Kebutuhan</th>
+                            <th class="px-4 py-4 text-left font-bold text-purple-400">Tool Rekomendasi</th>
+                            <th class="px-4 py-4 text-left font-bold text-cyan-400">Keunggulan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-slate-700/50 hover:bg-slate-900/30 transition">
+                            <td class="px-4 py-4 font-semibold">📝 Menulis & Editing</td>
+                            <td class="px-4 py-4">ChatGPT, Claude, Gemini</td>
+                            <td class="px-4 py-4 text-gray-300">Natural, konteks penuh, revisi cepat</td>
+                        </tr>
+                        <tr class="border-b border-slate-700/50 hover:bg-slate-900/30 transition">
+                            <td class="px-4 py-4 font-semibold">🔍 Riset Mendalam</td>
+                            <td class="px-4 py-4">Perplexity AI, Claude</td>
+                            <td class="px-4 py-4 text-gray-300">Akurat, sumber terverifikasi, analisis detail</td>
+                        </tr>
+                        <tr class="border-b border-slate-700/50 hover:bg-slate-900/30 transition">
+                            <td class="px-4 py-4 font-semibold">🎨 Buat Gambar</td>
+                            <td class="px-4 py-4">Midjourney, DALL-E 3</td>
+                            <td class="px-4 py-4 text-gray-300">Kualitas tinggi, detail fine-tuning</td>
+                        </tr>
+                        <tr class="border-b border-slate-700/50 hover:bg-slate-900/30 transition">
+                            <td class="px-4 py-4 font-semibold">🎵 Musik & Audio</td>
+                            <td class="px-4 py-4">Suno AI, ElevenLabs</td>
+                            <td class="px-4 py-4 text-gray-300">Musik original, voice natural, multi-bahasa</td>
+                        </tr>
+                        <tr class="border-b border-slate-700/50 hover:bg-slate-900/30 transition">
+                            <td class="px-4 py-4 font-semibold">💻 Coding Assist</td>
+                            <td class="px-4 py-4">GitHub Copilot, Cursor</td>
+                            <td class="px-4 py-4 text-gray-300">Integrasi IDE, autocompletion pintar</td>
+                        </tr>
+                        <tr class="hover:bg-slate-900/30 transition">
+                            <td class="px-4 py-4 font-semibold">🎬 Video & Avatar</td>
+                            <td class="px-4 py-4">HeyGen, Runway, Luma</td>
+                            <td class="px-4 py-4 text-gray-300">Avatar realistis, editing otomatis</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section id="tips" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-4xl md:text-5xl font-bold mb-4 section-title">Tips Penggunaan AI</h3>
+            <p class="text-gray-400 mb-16 text-lg">Maksimalkan hasil dengan tips praktis menggunakan AI tools</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Tip 1 -->
+                <div class="card card-hover p-8 rounded-xl border">
+                    <div class="text-5xl mb-4">🎯</div>
+                    <h4 class="text-2xl font-bold mb-3">Gunakan Prompt Spesifik</h4>
+                    <p class="text-gray-400 leading-relaxed">
+                        Semakin detail prompt Anda, semakin baik hasil AI. Jelaskan konteks, format output yang diinginkan, dan batasan yang diperlukan. Contoh: "Buat artikel blog 500 kata tentang AI untuk pemula, dengan struktur: intro, 3 benefit, kesimpulan."
+                    </p>
+                </div>
+
+                <!-- Tip 2 -->
+                <div class="card card-hover p-8 rounded-xl border">
+                    <div class="text-5xl mb-4">✅</div>
+                    <h4 class="text-2xl font-bold mb-3">Selalu Verifikasi Output</h4>
+                    <p class="text-gray-400 leading-relaxed">
+                        AI bisa menghasilkan informasi yang terlihat benar tapi salah (hallucination). Cek fakta dengan sumber terpercaya, khususnya untuk konten akademik, medis, atau hukum. Jangan percaya mentah-mentah!
+                    </p>
+                </div>
+
+                <!-- Tip 3 -->
+                <div class="card card-hover p-8 rounded-xl border">
+                    <div class="text-5xl mb-4">🔗</div>
+                    <h4 class="text-2xl font-bold mb-3">Kombinasikan Tools</h4>
+                    <p class="text-gray-400 leading-relaxed">
+                        Gunakan beberapa tools untuk hasil optimal. Misal: ChatGPT untuk ide, Perplexity untuk riset, Midjourney untuk visual, dan Canva untuk design final. Setiap tool punya kekuatan berbeda!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="kontak" class="py-16 px-4 border-t border-slate-700/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <!-- Tentang -->
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="text-2xl">⚡</div>
+                        <span class="text-xl font-bold gradient-text">AI Populer</span>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Portal terpercaya untuk menemukan, membandingkan, dan belajar menggunakan tools AI populer. Tingkatkan produktivitas Anda dengan teknologi AI terdepan.
+                    </p>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="font-bold text-white mb-4">Navigasi</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#home" class="hover:text-cyan-400 transition">Home</a></li>
+                        <li><a href="#kategori" class="hover:text-cyan-400 transition">Kategori</a></li>
+                        <li><a href="#perbandingan" class="hover:text-cyan-400 transition">Perbandingan</a></li>
+                        <li><a href="#tips" class="hover:text-cyan-400 transition">Tips</a></li>
+                    </ul>
+                </div>
+
+                <!-- Sosial Media -->
+                <div>
+                    <h4 class="font-bold text-white mb-4">Ikuti Kami</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-cyan-500 transition text-white">
+                            f
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-cyan-500 transition text-white">
+                            𝕏
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-cyan-500 transition text-white">
+                            in
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-cyan-500 transition text-white">
+                            ▶
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-700/50 pt-8 text-center text-gray-500">
+                <p>&copy; 2024 AI Populer. Semua hak cipta dilindungi. | Dibuat dengan ❤️ menggunakan HTML, CSS, & JavaScript</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const darkModeToggleMobile = document.getElementById('darkModeToggleMobile');
+        const body = document.body;
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        // Load dark mode preference
+        const isDarkMode = localStorage.getItem('darkMode') !== 'false';
+        if (isDarkMode) {
+            body.classList.add('dark-mode');
+            body.classList.remove('light-mode');
+            darkModeToggle.textContent = '☀️';
+            darkModeToggleMobile.textContent = '☀️';
+        } else {
+            body.classList.remove('dark-mode');
+            body.classList.add('light-mode');
+            darkModeToggle.textContent = '🌙';
+            darkModeToggleMobile.textContent = '🌙';
+        }
+
+        // Toggle dark mode
+        function toggleDarkMode() {
+            const isCurrentlyDark = body.classList.contains('dark-mode');
+            if (isCurrentlyDark) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                darkModeToggle.textContent = '🌙';
+                darkModeToggleMobile.textContent = '🌙';
+                localStorage.setItem('darkMode', 'false');
+            } else {
+                body.classList.add('dark-mode');
+                body.classList.remove('light-mode');
+                darkModeToggle.textContent = '☀️';
+                darkModeToggleMobile.textContent = '☀️';
+                localStorage.setItem('darkMode', 'true');
+            }
+        }
+
+        darkModeToggle.addEventListener('click', toggleDarkMode);
+        darkModeToggleMobile.addEventListener('click', toggleDarkMode);
+
+        // Mobile Menu Toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
